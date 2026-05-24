@@ -9,6 +9,7 @@ import Events from "./components/Events";
 import Sponsoring from "./components/Sponsoring";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import AIAssistant from "./components/AIAssistant";
 
 export default function App() {
   const [activeSection, setActiveSection] = useState("accueil");
@@ -102,6 +103,9 @@ export default function App() {
 
       {/* Section 10: Footer & Copyright notes */}
       <Footer onNavigate={handleNavigate} />
+
+      {/* Floating AI Assistant Integration */}
+      <AIAssistant />
     </div>
   );
 }

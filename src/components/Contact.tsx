@@ -14,9 +14,9 @@ export default function Contact() {
 
   // Email and Telephone credentials
   const contactInfo = {
-    email: "contact@ajk-alkendi.fr",
-    phone: "+33 4 72 81 90 22",
-    address: "Campus Al Kendi, 45 Rue de l'Orientation, 69003 Lyon",
+    email: "association.des.jeunes.alkendi@gmail.com",
+    phone: "+212 696-270079",
+    address: "Campus Al Kendi, Casablanca Finance City (CFC), Casablanca, Maroc",
   };
 
   const handleCopy = (text: string, id: string) => {
@@ -30,8 +30,17 @@ export default function Contact() {
     if (!name || !email || !message) return;
 
     setIsSubmitting(true);
-    // Simulate API network flight-time
+    
+    // Auto-transform/send message via standard mailto action
+    const mailtoSubject = encodeURIComponent(subject || "Formulaire de Contact AJK — Al Kendi");
+    const mailtoBody = encodeURIComponent(
+      `Bonjour l'AJK,\n\nVous avez reçu un nouveau message de la part de : ${name}\nEmail de contact : ${email}\n\nMessage :\n${message}\n\nCordialement.`
+    );
+    
+    // Simulate API submission workflow and trigger standard mail client
     setTimeout(() => {
+      window.location.href = `mailto:association.des.jeunes.alkendi@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
+      
       setIsSubmitting(false);
       setSubmitted(true);
       setName("");
@@ -40,21 +49,28 @@ export default function Contact() {
       setMessage("");
       // reset success screen after 5 seconds
       setTimeout(() => setSubmitted(false), 5000);
-    }, 1500);
+    }, 1200);
   };
 
   return (
     <section
       id="contact"
       className="py-20 bg-slate-50 relative overflow-hidden text-slate-900 border-t border-slate-200/60"
+      style={{ perspective: 1000 }}
     >
       {/* Decorative gradient accents */}
       <div className="absolute top-1/2 right-0 w-80 h-80 bg-blue-100/30 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Heading */}
-        <div className="max-w-3xl mx-auto text-center mb-16 space-y-3">
+        {/* Section Heading with high fidelity scroll in */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl mx-auto text-center mb-16 space-y-3"
+        >
           <span className="text-xs font-semibold tracking-widest text-sky-600 uppercase block">
             Nous écrire
           </span>
@@ -63,48 +79,62 @@ export default function Contact() {
           </h2>
           <div className="h-1 w-20 bg-sky-500 mx-auto rounded-full" />
           <p className="text-sm text-slate-500 font-sans max-w-xl mx-auto pt-1">
-            Une question sur l'un de nos événements, une remarque sur nos filières, ou un projet de sponsoring ? Notre bureau de l’AJK est à votre écoute.
+            Une question sur l'un de nos événements, une remarque sur nos filières, ou un projet de sponsoring ? Notre bureau de l’AJK est à votre écoute et reçoit vos courriels instantanément.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           
           {/* Left Column: Coordinates & Click to Copy info */}
-          <div className="lg:col-span-5 space-y-6 text-left">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="lg:col-span-5 space-y-6 text-left"
+          >
             <h3 className="text-xl font-sans font-bold text-slate-950 flex items-center gap-2">
               <span className="w-1.5 h-6 bg-sky-500 rounded-full" />
               Coordonnées de l'AJK
             </h3>
 
             <p className="text-sm text-slate-600 leading-relaxed font-sans">
-              Nos bureaux d'étudiants sont situés au sein même du Campus Al Kendi de Lyon. N'hésitez pas à passer nous voir lors de nos permanences du mardi au jeudi de 12h à 14h.
+              Nos bureaux d'étudiants sont situés au sein même du Campus Al Kendi de Casablanca (CFC). N'hésitez pas à passer nous voir lors de nos permanences du mardi au jeudi de 12h à 14h.
             </p>
 
             <div className="space-y-4">
               
-              {/* E-mail copy card */}
-              <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-sm flex items-center justify-between group">
+              {/* E-mail copy card with interactive 3D hover scale */}
+              <motion.div 
+                whileHover={{ scale: 1.025, rotateY: 5, translateZ: 10 }}
+                style={{ transformStyle: "preserve-3d" }}
+                className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-sm flex items-center justify-between group cursor-pointer transition-all"
+              >
                 <div className="flex items-center gap-3">
                   <div className="p-3 bg-sky-100/60 text-sky-600 rounded-xl">
                     <Mail className="h-4.5 w-4.5" />
                   </div>
                   <div className="text-left">
                     <span className="text-[10px] font-mono uppercase text-slate-400 block font-medium">Par Email</span>
-                    <span className="text-xs sm:text-sm font-semibold text-slate-800">{contactInfo.email}</span>
+                    <span className="text-xs sm:text-sm font-semibold text-slate-850 break-all">{contactInfo.email}</span>
                   </div>
                 </div>
                 <button
                   id="copy-email-btn"
                   onClick={() => handleCopy(contactInfo.email, "email")}
-                  className="p-2 text-slate-400 hover:text-sky-600 bg-slate-50 hover:bg-sky-50 border border-slate-100 rounded-lg group-hover:scale-105 transition-colors"
+                  className="p-2 text-slate-400 hover:text-sky-600 bg-slate-50 hover:bg-sky-55 border border-slate-100 rounded-lg group-hover:scale-105 transition-colors"
                   title="Copier l'email"
                 >
                   {copiedId === "email" ? <Check className="h-4 w-4 text-emerald-500 animate-pulse" /> : <Copy className="h-4 w-4" />}
                 </button>
-              </div>
+              </motion.div>
 
-              {/* Telephone copy card */}
-              <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-sm flex items-center justify-between group">
+              {/* Telephone copy card with 3D hover */}
+              <motion.div 
+                whileHover={{ scale: 1.025, rotateY: -5, translateZ: 10 }}
+                style={{ transformStyle: "preserve-3d" }}
+                className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-sm flex items-center justify-between group cursor-pointer transition-all"
+              >
                 <div className="flex items-center gap-3">
                   <div className="p-3 bg-sky-100/60 text-sky-600 rounded-xl">
                     <Phone className="h-4.5 w-4.5" />
@@ -117,15 +147,18 @@ export default function Contact() {
                 <button
                   id="copy-phone-btn"
                   onClick={() => handleCopy(contactInfo.phone, "phone")}
-                  className="p-2 text-slate-400 hover:text-sky-600 bg-slate-50 hover:bg-sky-50 border border-slate-100 rounded-lg group-hover:scale-105 transition-colors"
+                  className="p-2 text-slate-400 hover:text-sky-600 bg-slate-50 hover:bg-sky-55 border border-slate-100 rounded-lg group-hover:scale-105 transition-colors"
                   title="Copier le numéro"
                 >
                   {copiedId === "phone" ? <Check className="h-4 w-4 text-emerald-500 animate-pulse" /> : <Copy className="h-4 w-4" />}
                 </button>
-              </div>
+              </motion.div>
 
               {/* Address card */}
-              <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-sm flex items-start gap-3">
+              <motion.div 
+                whileHover={{ scale: 1.02, translateZ: 5 }}
+                className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-sm flex items-start gap-3"
+              >
                 <div className="p-3 bg-sky-100/60 text-sky-600 rounded-xl shrink-0">
                   <MapPin className="h-4.5 w-4.5" />
                 </div>
@@ -137,11 +170,11 @@ export default function Contact() {
                     Bâtiment C - Bureau 204 (2ème Étage)
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
             </div>
 
-            {/* Social networks Follow Widget */}
+            {/* Social networks Follow Widget without GitHub Code Lab as requested */}
             <div className="space-y-3 pt-4 border-t border-slate-200">
               <h4 className="text-xs font-mono uppercase tracking-wider font-semibold text-slate-400">
                 Suivre l'AJK sur les réseaux
@@ -165,22 +198,24 @@ export default function Contact() {
                   <Globe className="h-3.5 w-3.5 text-pink-500" />
                   <span>Instagram</span>
                 </a>
-                <a
-                  href="https://github.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="px-3 py-2 bg-white hover:bg-slate-100 border border-slate-200 hover:border-slate-350 text-slate-700 hover:text-slate-900 text-xs font-medium rounded-xl font-sans inline-flex items-center gap-1.5 transition-all shadow-sm"
-                >
-                  <Globe className="h-3.5 w-3.5 text-slate-900" />
-                  <span>GitHub Code Lab</span>
-                </a>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Right Column: Contact form with rich feedback */}
-          <div className="lg:col-span-7">
-            <div className="p-8 rounded-3xl bg-white border border-slate-200/80 shadow-md relative overflow-hidden">
+          {/* Right Column: Contact form with rich 3D scroll and feedback */}
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="lg:col-span-7"
+          >
+            <motion.div 
+              whileHover={{ rotateX: 1, rotateY: -1 }}
+              transition={{ type: "spring", stiffness: 200 }}
+              className="p-8 rounded-3xl bg-white border border-slate-200/80 shadow-md relative overflow-hidden"
+              style={{ transformStyle: "preserve-3d" }}
+            >
               
               {!submitted ? (
                 <form onSubmit={handleSubmit} className="space-y-5 text-left">
@@ -269,15 +304,15 @@ export default function Contact() {
                     <CheckCircle2 className="h-12 w-12" />
                   </div>
                   <div className="space-y-2">
-                    <h3 className="text-xl font-sans font-bold text-slate-950">Message Envoyé !</h3>
+                    <h3 className="text-xl font-sans font-bold text-slate-950">Redirection Mail client</h3>
                     <p className="text-xs sm:text-sm text-slate-500 max-w-sm mx-auto">
-                      Merci pour votre intérêt, <span className="font-semibold text-slate-800">{name || "visiteur"}</span>. Votre requête a été transmise aux administrateurs de l’AJK du BTS Al Kendi. Un e-mail de confirmation vient de vous être adressé.
+                      Merci <span className="font-semibold text-slate-800">{name || "visiteur"}</span> ! Votre message à destination de <span className="font-semibold text-sky-600">association.des.jeunes.alkendi@gmail.com</span> a été préparé dans votre logiciel ou application de messagerie de manière automatique.
                     </p>
                   </div>
                 </div>
               )}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
         </div>
 

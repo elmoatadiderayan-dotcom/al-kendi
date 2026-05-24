@@ -39,9 +39,9 @@ export default function Filieres() {
           </p>
         </div>
 
-        {/* 3 Columns Cards Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {FILIERES.map((filiere) => {
+        {/* 3 Columns Cards Layout with 3D tilt effects */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8" style={{ perspective: 1000 }}>
+          {FILIERES.map((filiere, idx) => {
             const Icon = iconMap[filiere.iconName] || CodeXml;
             const isExpanded = activeFiliereTab === filiere.id;
 
@@ -49,9 +49,20 @@ export default function Filieres() {
               <motion.div
                 key={filiere.id}
                 id={`filiere-card-${filiere.id}`}
-                whileHover={{ y: -6 }}
-                transition={{ type: "spring", stiffness: 350, damping: 25 }}
-                className="rounded-3xl bg-white border border-slate-200/80 shadow-sm hover:shadow-xl transition-all p-7 flex flex-col justify-between overflow-hidden relative group"
+                initial={{ opacity: 0, scale: 0.92, y: 35 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.15 }}
+                whileHover={{ 
+                  scale: 1.03, 
+                  rotateY: filiere.id === "dia" ? -6 : filiere.id === "cg" ? 6 : 0,
+                  rotateX: -2,
+                  z: 40,
+                  boxShadow: "0 25px 50px -12px rgba(14, 165, 233, 0.12)",
+                  transition: { duration: 0.25 }
+                }}
+                style={{ transformStyle: "preserve-3d" }}
+                className="rounded-3xl bg-white border border-slate-200/80 shadow-sm transition-all p-7 flex flex-col justify-between overflow-hidden relative group cursor-pointer"
               >
                 {/* Decorative border bar */}
                 <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-600 to-sky-450 opacity-80 group-hover:h-2.5 transition-all" />

@@ -133,7 +133,18 @@ export default function Hero({ onDiscoverClick }: HeroProps) {
             className="lg:col-span-5 flex justify-center items-center relative"
           >
             {/* Visual Frame */}
-            <div className="relative w-full max-w-[450px] aspect-[4/3] rounded-3xl p-3 bg-slate-900/60 border border-sky-950/40 shadow-2xl overflow-hidden group">
+            <motion.div 
+              whileHover={{ 
+                scale: 1.04, 
+                rotateY: 12, 
+                rotateX: -8, 
+                z: 60,
+                boxShadow: "0 25px 50px -12px rgba(14, 165, 233, 0.15)",
+                transition: { duration: 0.3 } 
+              }}
+              style={{ transformStyle: "preserve-3d", perspective: 1000 }}
+              className="relative w-full max-w-[450px] aspect-[4/3] rounded-3xl p-3 bg-slate-900/60 border border-sky-950/40 shadow-2xl overflow-hidden group cursor-pointer"
+            >
               {/* Corner tech marks */}
               <div className="absolute top-3 left-3 w-5 h-5 border-t-2 border-l-2 border-sky-500 opacity-60" />
               <div className="absolute top-3 right-3 w-5 h-5 border-t-2 border-r-2 border-sky-500 opacity-60" />
@@ -160,7 +171,7 @@ export default function Hero({ onDiscoverClick }: HeroProps) {
                   </span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Background design accents */}
             <div className="absolute -top-6 -left-6 w-12 h-12 rounded-full border border-sky-500/20 animate-pulse pointer-events-none" />

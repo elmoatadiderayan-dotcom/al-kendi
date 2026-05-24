@@ -1,4 +1,5 @@
-import { GraduationCap, ArrowUp, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowUp, Mail, MapPin, Phone } from "lucide-react";
+import ajkLogo from "../assets/images/regenerated_image_1779662384829.jpg";
 
 interface FooterProps {
   onNavigate: (sectionId: string) => void;
@@ -22,8 +23,13 @@ export default function Footer({ onNavigate }: FooterProps) {
           {/* Logo & Description */}
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-3 cursor-pointer" onClick={() => onNavigate("accueil")}>
-              <div className="p-2 bg-sky-500/10 border border-sky-500/20 rounded-xl text-sky-400">
-                <GraduationCap className="h-6 w-6" />
+              <div className="h-10 w-10 flex items-center justify-center bg-sky-500/10 border border-sky-450/40 rounded-xl overflow-hidden text-sky-400 shrink-0">
+                <img 
+                  src={ajkLogo} 
+                  alt="AJK Logo" 
+                  className="h-full w-full object-cover" 
+                  referrerPolicy="no-referrer"
+                />
               </div>
               <div>
                 <span className="font-sans font-bold text-lg text-white tracking-tight block">
@@ -91,15 +97,15 @@ export default function Footer({ onNavigate }: FooterProps) {
             <div className="space-y-3.5 text-xs text-slate-400">
               <div className="flex items-start gap-2">
                 <MapPin className="h-4 w-4 text-sky-500 shrink-0 mt-0.5" />
-                <span>BTS Al Kendi, 45 Rue de l'Orientation, 69003 Lyon</span>
+                <span>BTS Al Kendi, Casablanca Finance City (CFC), Casablanca, Maroc</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-sky-500 shrink-0" />
-                <span>contact@ajk-alkendi.fr</span>
+                <span>association.des.jeunes.alkendi@gmail.com</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-sky-500 shrink-0" />
-                <span>+33 4 72 81 90 22</span>
+                <span>+212 696-270079</span>
               </div>
             </div>
           </div>

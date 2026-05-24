@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { GraduationCap, Menu, X, ArrowRight, BookOpen } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import ajkLogo from "../assets/images/regenerated_image_1779662384829.jpg";
 
 interface NavbarProps {
   onNavigate: (sectionId: string) => void;
@@ -56,8 +57,13 @@ export default function Navbar({ onNavigate, activeSection }: NavbarProps) {
             className="flex items-center gap-3 cursor-pointer group"
             onClick={() => handleItemClick("accueil")}
           >
-            <div className="p-2 bg-sky-500/10 border border-sky-400/30 rounded-xl group-hover:bg-sky-500/20 transition-all">
-              <GraduationCap className="h-6 w-6 text-sky-400 group-hover:scale-110 transition-transform" />
+            <div className="h-10 w-10 flex items-center justify-center bg-sky-500/10 border border-sky-450/40 rounded-xl overflow-hidden group-hover:bg-sky-500/20 transition-all">
+              <img 
+                src={ajkLogo} 
+                alt="AJK Logo" 
+                className="h-full w-full object-cover group-hover:scale-110 transition-transform" 
+                referrerPolicy="no-referrer"
+              />
             </div>
             <div>
               <div className="flex items-center gap-1.5">

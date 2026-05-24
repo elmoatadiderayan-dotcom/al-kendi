@@ -31,23 +31,37 @@ export default function Sponsoring() {
     e.preventDefault();
     if (!sponsorEmail || !sponsorCompany) return;
     setSuccessMsg(true);
+
+    const mailtoSubject = encodeURIComponent(`Demande de Sponsoring — ${selectedPack}`);
+    const mailtoBody = encodeURIComponent(
+      `Bonjour l'AJK,\n\nNotre entreprise ${sponsorCompany} souhaite souscrire au :\n👉 ${selectedPack}\n\nEmail de contact de l'entreprise : ${sponsorEmail}\n\nMerci de reprendre contact avec nous afin de finaliser le partenariat.\n\nCordialement.`
+    );
+
     setTimeout(() => {
+      window.location.href = `mailto:association.des.jeunes.alkendi@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
       setSuccessMsg(false);
       setIsFormModalOpen(false);
       setSponsorEmail("");
       setSponsorCompany("");
-    }, 3000);
+    }, 1200);
   };
 
   return (
     <section
       id="sponsoring"
       className="py-20 bg-white relative overflow-hidden text-slate-900 border-t border-slate-100"
+      style={{ perspective: 1000 }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Heading */}
-        <div className="max-w-3xl mx-auto text-center mb-16 space-y-3">
+        {/* Section Heading with Scroll animation */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl mx-auto text-center mb-16 space-y-3"
+        >
           <span className="text-xs font-semibold tracking-widest text-sky-600 uppercase block">
             Devenir Partenaire
           </span>
@@ -58,11 +72,11 @@ export default function Sponsoring() {
           <p className="text-sm text-slate-500 font-sans max-w-xl mx-auto pt-1">
             Associez l’image de votre entreprise à l’excellence du BTS Al Kendi. Recrutez nos meilleurs talents de DIA, DAI et CG en soutenant nos initiatives de terrain.
           </p>
-        </div>
+        </motion.div>
 
         {/* 3 Columns Sponsoring Packs */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch mb-16">
-          {SPONSORING_PACKS.map((pack) => {
+          {SPONSORING_PACKS.map((pack, idx) => {
             const Icon = iconMap[pack.iconName] || Award;
             const isSelected = selectedPack === pack.name;
 
@@ -71,7 +85,19 @@ export default function Sponsoring() {
                 key={pack.name}
                 id={`sponsor-pack-${pack.name.toLowerCase().replace(/\s+/g, "-")}`}
                 onClick={() => setSelectedPack(pack.name)}
-                whileHover={{ y: -6 }}
+                initial={{ opacity: 0, scale: 0.9, y: 40 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.15 }}
+                whileHover={{ 
+                  scale: 1.03, 
+                  rotateY: pack.name === "Pack Bronze" ? -6 : pack.name === "Pack Gold" ? 6 : 0,
+                  rotateX: -3,
+                  z: 50,
+                  boxShadow: "0 25px 50px -12px rgba(0,0, 0, 0.12)",
+                  transition: { duration: 0.25 }
+                }}
+                style={{ transformStyle: "preserve-3d" }}
                 className={`rounded-3xl border p-8 flex flex-col justify-between cursor-pointer transition-all relative ${
                   isSelected
                     ? "border-sky-550 bg-sky-950/5 shadow-xl ring-2 ring-sky-400/20"
@@ -97,10 +123,10 @@ export default function Sponsoring() {
                   </div>
 
                   <div>
-                    <span className="text-3xl sm:text-4xl font-sans font-extrabold text-slate-950 tracking-tight">
-                      {pack.price}
+                    <span className="text-xl sm:text-2xl font-sans font-extrabold text-sky-600 tracking-tight">
+                      Don de Soutien
                     </span>
-                    <span className="text-xs text-slate-400 font-mono ml-1.5">/ Don unique</span>
+                    <span className="text-xs text-slate-400 font-mono ml-1.5 block">Partenariat AJK</span>
                   </div>
 
                   <p className="text-xs text-slate-500 font-sans">
