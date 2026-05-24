@@ -1,0 +1,6 @@
+{
+  "name": "Association des Jeunes Al Kendi",
+  "description": "Site officiel de l’Association des Jeunes Al Kendi (AJK) du BTS Al Kendi.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
