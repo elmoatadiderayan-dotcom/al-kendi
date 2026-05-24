@@ -16,7 +16,7 @@ export default function Contact() {
   const contactInfo = {
     email: "association.des.jeunes.alkendi@gmail.com",
     phone: "+212 696-270079",
-    address: "Campus Al Kendi, Casablanca Finance City (CFC), Casablanca, Maroc",
+    address: "BTS Al Kendi, Casablanca Finance City (CFC), Casablanca, Maroc",
   };
 
   const handleCopy = (text: string, id: string) => {
@@ -99,7 +99,7 @@ export default function Contact() {
             </h3>
 
             <p className="text-sm text-slate-600 leading-relaxed font-sans">
-              Nos bureaux d'étudiants sont situés au sein même du Campus Al Kendi de Casablanca (CFC). N'hésitez pas à passer nous voir lors de nos permanences du mardi au jeudi de 12h à 14h.
+              Nos bureaux d'étudiants sont situés au sein même du BTS Al Kendi de Casablanca (CFC). N'hésitez pas à passer nous voir lors de nos permanences du mardi au jeudi de 12h à 14h.
             </p>
 
             <div className="space-y-4">

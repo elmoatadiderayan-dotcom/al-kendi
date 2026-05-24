@@ -163,7 +163,7 @@ export default function Hero({ onDiscoverClick }: HeroProps) {
                 <div className="absolute bottom-3 left-3 right-3 py-2 px-3 bg-slate-900/90 backdrop-blur border border-sky-500/20 rounded-xl flex items-center justify-between shadow-lg">
                   <div className="flex items-center gap-2">
                     <GraduationCap className="h-4 w-4 text-sky-400" />
-                    <span className="text-xs text-white font-sans font-medium">BTS Al Kendi Campus</span>
+                    <span className="text-xs text-white font-sans font-medium">BTS Al Kendi</span>
                   </div>
                   <span className="text-[10px] font-mono text-emerald-400 flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />

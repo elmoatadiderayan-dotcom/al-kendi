@@ -92,7 +92,7 @@ export default function Footer({ onNavigate }: FooterProps) {
           {/* Practical info block */}
           <div className="md:col-span-4 space-y-4">
             <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-white">
-              Secrétariat & Campus
+              Secrétariat & Bureau
             </h4>
             <div className="space-y-3.5 text-xs text-slate-400">
               <div className="flex items-start gap-2">

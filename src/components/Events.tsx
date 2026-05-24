@@ -115,7 +115,7 @@ export default function Events() {
                       isEven ? "md:justify-end" : ""
                     }`}>
                       <MapPin className="h-3.5 w-3.5 text-rose-500" />
-                      <span>Campus BTS Al Kendi, Salle Polyvalente / Hub Tech</span>
+                      <span>BTS Al Kendi, Salle Polyvalente / Hub Tech</span>
                     </div>
 
                   </div>
