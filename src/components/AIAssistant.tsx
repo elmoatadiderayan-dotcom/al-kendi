@@ -57,7 +57,8 @@ export default function AIAssistant() {
       });
 
       if (!response.ok) {
-        throw new Error("Erreur de connexion avec l'IA");
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.details || errorData.error || "Erreur de connexion avec l'IA");
       }
 
       const data = await response.json();
@@ -65,13 +66,13 @@ export default function AIAssistant() {
         ...prev,
         { role: "model", parts: [{ text: data.text || "Désolé, je rencontre une petite difficulté pour formuler ma réponse." }] },
       ]);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
       setMessages((prev) => [
         ...prev,
         {
           role: "model",
-          parts: [{ text: "Oups ! Je ne parviens pas à joindre mes modules d'Intelligence Artificielle. Vérifiez votre connexion ou retentez dans un instant." }],
+          parts: [{ text: `Oups ! ${err?.message || "Je ne parviens pas à joindre mes modules d'Intelligence Artificielle. Vérifiez votre connexion ou retentez dans un instant."}` }],
         },
       ]);
     } finally {

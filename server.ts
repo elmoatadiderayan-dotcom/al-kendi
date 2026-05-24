@@ -40,6 +40,24 @@ async function startServer() {
         return res.status(400).json({ error: "Le tableau de messages est requis." });
       }
 
+      const apiKey = process.env.GEMINI_API_KEY;
+      if (!apiKey) {
+        return res.status(400).json({ 
+          error: "Clé API manquante", 
+          details: "La variable d'environnement GEMINI_API_KEY n'a pas été configurée ou trouvée. Veuillez l'ajouter dans l'onglet Secrets de AI Studio." 
+        });
+      }
+
+      // Filter out any leading model greeting message to ensure Gemini conversation starts with a 'user' message
+      let filteredMessages = [...messages];
+      while (filteredMessages.length > 0 && filteredMessages[0].role !== "user") {
+        filteredMessages.shift();
+      }
+
+      if (filteredMessages.length === 0) {
+        return res.status(400).json({ error: "Aucun message utilisateur trouvé pour alimenter l'IA." });
+      }
+
       const client = getAiClient();
 
       // Official knowledge context for AJK
@@ -85,7 +103,7 @@ Règles de style linguistiques :
 
       const gResponse = await client.models.generateContent({
         model: "gemini-3.5-flash",
-        contents: messages,
+        contents: filteredMessages,
         config: {
           systemInstruction: systemInstruction,
           temperature: 0.75,
@@ -95,7 +113,15 @@ Règles de style linguistiques :
       res.json({ text: gResponse.text });
     } catch (err: any) {
       console.error("Gemini Assistant API Error:", err);
-      res.status(500).json({ error: err?.message || "Internal server error" });
+      // If the error indicates invalid key or bad request, report specifically
+      const errMsg = err?.message || "";
+      if (errMsg.includes("API key not valid") || errMsg.includes("Key not valid")) {
+        return res.status(401).json({ 
+          error: "Clé API invalide", 
+          details: "La clé API fournie est invalide ou n'est pas autorisée. Veuillez vérifier vos secrets AI Studio." 
+        });
+      }
+      res.status(500).json({ error: errMsg || "Internal server error" });
     }
   });
 
